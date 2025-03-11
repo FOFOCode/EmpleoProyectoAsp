@@ -1,0 +1,92 @@
+﻿@model IEnumerable<PadillaEmpleosParteFofo.Models.OfertaEmpleo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id_pais)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OfertaCategoria.CategoriaProfesional.nombre_categoria_profesional)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.id_empresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vacantes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.horario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.duracion_contrato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>@* Para mostrar los datos de la tabla es: Variable del foreach.modelo.campo *@
+            <td>
+                @* Variable.Modelo.campo a mostrar *@
+                @Html.DisplayFor(modelItem => item.Pais.nombre_pais)
+            </td>
+            <td>
+                @* En este caso al ser mas de una relacion hacemos lo siguiente: *@
+                @* Variable.ModeloTablaPrincipal.ModeloTablaRelacionada.Campo a mostrar *@
+                @Html.DisplayFor(modelItem => item.OfertaCategoria.CategoriaProfesional.nombre_categoria_profesional)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Empresa.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vacantes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.salario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duracion_contrato)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id_oferta_empleo">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id_oferta_empleo">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id_oferta_empleo">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
