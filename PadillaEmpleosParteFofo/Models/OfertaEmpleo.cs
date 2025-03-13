@@ -30,6 +30,7 @@ namespace PadillaEmpleosParteFofo.Models
 
         public string horario { get; set; }
 
+        [Display(Name = "Duracion")]
         public string duracion_contrato { get; set; }
 
         public string estado { get; set; }

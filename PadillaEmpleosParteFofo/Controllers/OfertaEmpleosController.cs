@@ -21,38 +21,70 @@ namespace PadillaEmpleosParteFofo.Controllers
         // GET: OfertaEmpleos
         public async Task<IActionResult> Index()
         {
+            //var ofertas = await _context.OfertaEmpleo
+
+            //    //o es una variable por eso => expresion lambda,hacen referencia a los objetos de los modelos de la clase(Punto 2 documento)
+
+            //    .Include(o => o.Pais)           // Relación con la tabla Pais
+
+            //    .Include(o => o.OfertaCategoria)// Relación con la tabla OfertaCategoria
+            //        .ThenInclude(oc => oc.CategoriaProfesional)//Relacion oferta categoria a categoria profesional
+
+            //    .Include(o => o.Empresa)        // Relación con la tabla Empresa
+            //    .ToListAsync();
+
+            //return View(ofertas);
+
+            int idEmpresa = 1;
+
+            if (idEmpresa == null)
+            {
+                return NotFound();
+            }
+
+            // Obtén todas las ofertas de empleo para la empresa con el id proporcionado
             var ofertas = await _context.OfertaEmpleo
+                .Include(o => o.Pais)
+                .Include(o => o.OfertaCategoria)
+                    .ThenInclude(oc => oc.CategoriaProfesional)
+                .Include(o => o.Empresa)
+                .Where(o => o.id_empresa == idEmpresa)
+                .ToListAsync(); // Esperar a que la tarea se complete y obtener la lista
 
-                //o es una variable por eso => expresion lambda,hacen referencia a los objetos de los modelos de la clase(Punto 2 documento)
+            if (ofertas == null || !ofertas.Any()) // Si no hay ofertas para esa empresa
+            {
+                return NotFound(); // Devuelve una página 404 si no hay ofertas
+            }
 
-                .Include(o => o.Pais)           // Relación con la tabla Pais
-
-                .Include(o => o.OfertaCategoria)// Relación con la tabla OfertaCategoria
-                    .ThenInclude(oc => oc.CategoriaProfesional)//Relacion oferta categoria a categoria profesional
-
-                .Include(o => o.Empresa)        // Relación con la tabla Empresa
-                .ToListAsync();
-
-            return View(ofertas);
+            return View(ofertas); // Pasamos la lista de ofertas a la vista
         }
 
 
         // GET: OfertaEmpleos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details()
         {
-            if (id == null)
+            int idEmpresa = 1;
+
+            if (idEmpresa == null)
             {
                 return NotFound();
             }
 
-            var ofertaEmpleoEmpresa = await _context.OfertaEmpleo
-                .FirstOrDefaultAsync(m => m.id_oferta_empleo == id);
-            if (ofertaEmpleoEmpresa == null)
+            // Obtén todas las ofertas de empleo para la empresa con el id proporcionado
+            var ofertas = await _context.OfertaEmpleo
+                .Include(o => o.Pais)
+                .Include(o => o.OfertaCategoria)
+                    .ThenInclude(oc => oc.CategoriaProfesional)
+                .Include(o => o.Empresa)
+                .Where(o => o.id_empresa == idEmpresa)
+                .ToListAsync(); // Esperar a que la tarea se complete y obtener la lista
+
+            if (ofertas == null || !ofertas.Any()) // Si no hay ofertas para esa empresa
             {
-                return NotFound();
+                return NotFound(); // Devuelve una página 404 si no hay ofertas
             }
 
-            return View(ofertaEmpleoEmpresa);
+            return View(ofertas); // Pasamos la lista de ofertas a la vista
         }
 
         // GET: OfertaEmpleos/Create
