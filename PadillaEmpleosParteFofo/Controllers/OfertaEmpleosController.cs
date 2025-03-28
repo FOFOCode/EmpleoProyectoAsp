@@ -21,43 +21,30 @@ namespace PadillaEmpleosParteFofo.Controllers
         // GET: OfertaEmpleos
         public async Task<IActionResult> Index()
         {
-            //var ofertas = await _context.OfertaEmpleo
-
-            //    //o es una variable por eso => expresion lambda,hacen referencia a los objetos de los modelos de la clase(Punto 2 documento)
-
-            //    .Include(o => o.Pais)           // Relación con la tabla Pais
-
-            //    .Include(o => o.OfertaCategoria)// Relación con la tabla OfertaCategoria
-            //        .ThenInclude(oc => oc.CategoriaProfesional)//Relacion oferta categoria a categoria profesional
-
-            //    .Include(o => o.Empresa)        // Relación con la tabla Empresa
-            //    .ToListAsync();
-
-            //return View(ofertas);
-
             int idEmpresa = 1;
 
             if (idEmpresa == null)
             {
-                return NotFound();
+                return NotFound(); // Retorna 404 si no se proporciona un id de empresa
             }
 
-            // Obtén todas las ofertas de empleo para la empresa con el id proporcionado
+            // Consulta las ofertas de empleo filtradas por la empresa y con sus relaciones necesarias
             var ofertas = await _context.OfertaEmpleo
                 .Include(o => o.Pais)
                 .Include(o => o.OfertaCategoria)
-                    .ThenInclude(oc => oc.CategoriaProfesional)
+                    .ThenInclude(oc => oc.CategoriaProfesional) // Relación con la categoría profesional
                 .Include(o => o.Empresa)
                 .Where(o => o.id_empresa == idEmpresa)
-                .ToListAsync(); // Esperar a que la tarea se complete y obtener la lista
+                .ToListAsync();
 
-            if (ofertas == null || !ofertas.Any()) // Si no hay ofertas para esa empresa
+            if (ofertas == null || !ofertas.Any())
             {
-                return NotFound(); // Devuelve una página 404 si no hay ofertas
+                return NotFound(); // Retorna 404 si no hay ofertas para esa empresa
             }
 
-            return View(ofertas); // Pasamos la lista de ofertas a la vista
+            return View(ofertas);
         }
+
 
 
         // GET: OfertaEmpleos/Details/5

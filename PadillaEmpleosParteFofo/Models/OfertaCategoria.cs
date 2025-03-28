@@ -1,16 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PadillaEmpleosParteFofo.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace PadillaEmpleosParteFofo.Models
-{
+namespace PadillaEmpleosParteFofo.Models { 
+
     public class OfertaCategoria
     {
         [Key]
-        public int id_oferta_categoria { get; set; }
-        [ForeignKey(nameof(CategoriaProfesional))]//No funciono de la otra forma el nommbre de la bd ha de estar malo
-        public int id_categoria_profesional { get; set; }
-        public int id_subcategoria_profesional { get; set; }
+        public int id_ofertacategoria { get; set; }
 
-        public CategoriaProfesional CategoriaProfesional { get; set; }
+        [ForeignKey("OfertaEmpleo")]
+        public int id_ofertaempleo { get; set; } 
+
+        [ForeignKey("CategoriaProfesional")]
+        public int id_categoriaprofesional { get; set; }
+        public int id_subcategoriaprofesional { get; set; }
+
+        public virtual CategoriaProfesional CategoriaProfesional { get; set; }
+        public virtual OfertaEmpleo OfertaEmpleo { get; set; }
+        public virtual SubcategoriaProfesional SubCategoriaProfesional { get; set; }
     }
 }

@@ -1,23 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PadillaEmpleosParteFofo.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace PadillaEmpleosParteFofo.Models
-{
+
+namespace PadillaEmpleosParteFofo.Models { 
+
     public class OfertaEmpleo
     {
         [Key]
-        public int id_oferta_empleo { get; set; }
+        public int id_ofertaempleo { get; set; }
 
         [ForeignKey("Pais")]
-        [Display(Name = "Pais")]
         public int id_pais { get; set; }
 
-        [ForeignKey("OfertaCategoria")]
-        [Display(Name = "Categoria")]
-        public int id_oferta_categoria { get; set; }
+        [ForeignKey("Provincia")]
+        public int id_provincia { get; set; }
 
         [ForeignKey("Empresa")]
-        [Display(Name = "Empresa")]
         public int id_empresa { get; set; }
 
         public string titulo { get; set; }
@@ -30,15 +29,15 @@ namespace PadillaEmpleosParteFofo.Models
 
         public string horario { get; set; }
 
-        [Display(Name = "Duracion")]
         public string duracion_contrato { get; set; }
+
+        public DateTime fecha_publicacion { get; set; }
 
         public string estado { get; set; }
 
+        public virtual Pais Pais { get; set; }
+        public virtual Empresa Empresa { get; set; }
 
-        // Relación con otras tablas
-        public Pais Pais { get; set; }
-        public OfertaCategoria OfertaCategoria { get; set; }
-        public Empresa Empresa { get; set; }
+        public virtual Provincia Provincia { get; set; }
     }
 }

@@ -15,6 +15,9 @@ namespace PadillaEmpleosParteFofo.Models
         public DbSet<Pais> Pais { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
         public DbSet<Provincia> Provincia { get; set; }
+        public DbSet<RequisitoOferta> RequisitoOferta { get; set; }
+        public DbSet<Requisito> Requisito { get; set; }
+        public DbSet<SuscripcionCategoria> SuscripcionCategoria{ get; set; }
 
-    }
+}
 }

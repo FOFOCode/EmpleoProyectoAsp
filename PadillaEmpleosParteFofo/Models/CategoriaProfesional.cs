@@ -5,9 +5,9 @@ namespace PadillaEmpleosParteFofo.Models
     public class CategoriaProfesional
     {
         [Key]
-        public int id_categoria_profesional { get; set; }
+        public int id_categoriaprofesional { get; set; }
 
         [Display(Name = "Categoria")]
-        public string nombre_categoria_profesional { get; set; }
+        public string nombre { get; set; }
     }
 }

@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.id_pais)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OfertaCategoria.CategoriaProfesional.nombre_categoria_profesional)
+                @Html.DisplayNameFor(model => model.OfertaCategoria.CategoriaProfesional.nombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.id_empresa)
@@ -55,7 +55,7 @@
             <td>
                 @* En este caso al ser mas de una relacion hacemos lo siguiente: *@
                 @* Variable.ModeloTablaPrincipal.ModeloTablaRelacionada.Campo a mostrar *@
-                @Html.DisplayFor(modelItem => item.OfertaCategoria.CategoriaProfesional.nombre_categoria_profesional)
+                @Html.DisplayFor(modelItem => item.OfertaCategoria.CategoriaProfesional.nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Empresa.nombre)
