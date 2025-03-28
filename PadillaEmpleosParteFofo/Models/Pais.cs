@@ -6,6 +6,6 @@ namespace PadillaEmpleosParteFofo.Models
     {
         [Key]
         public int id_pais { get; set; }
-        public string nombre_pais { get; set; }
+        public string nombre { get; set; }
     }
 }

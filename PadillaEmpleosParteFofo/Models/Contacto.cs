@@ -3,16 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PadillaEmpleosParteFofo.Models
 {
-    public class Postulante
+    public class Contacto
     {
         [Key]
-        public int id_postulante { get; set; }
-
+        public int id_contacto { get; set; }
         [ForeignKey("Usuario")]
         public int id_usuario { get; set; }
-
-        public string nombre { get; set; }
-        public string direccion { get; set; }
+        public string? telefono { get; set; }
+        public string? email { get; set; }
 
         public virtual Usuario Usuario { get; set; }
     }
