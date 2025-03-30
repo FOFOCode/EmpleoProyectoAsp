@@ -16,12 +16,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.id_pais)
         </dd>
-        <dt class = "col-sm-2">
+        @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.OfertaCategoria.id_categoria_profesional)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.OfertaCategoria.id_oferta_categoria)
-        </dd>
+        </dd> *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.id_empresa)
         </dt>
@@ -73,6 +73,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.id_oferta_empleo">Edit</a> |
+   @*  <a asp-action="Edit" asp-route-id="@Model?.id_oferta_empleo">Edit</a> | *@
     <a asp-action="Index">Back to List</a>
 </div>
