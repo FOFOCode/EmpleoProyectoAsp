@@ -8,7 +8,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<empleoDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BDConnection")));
+/*
+builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<empleoDBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Damian")));
+*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
