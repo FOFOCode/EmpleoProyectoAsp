@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSession();
+builder.Services.AddDistributedMemoryCache();
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

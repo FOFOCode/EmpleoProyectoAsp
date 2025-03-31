@@ -13,6 +13,7 @@ namespace PadillaEmpleosParteFofo.Controllers
 {
     public class OfertaEmpleosController : Controller
     {
+
         private readonly empleoDBContext _context;
 
         public OfertaEmpleosController(empleoDBContext context)
@@ -21,8 +22,12 @@ namespace PadillaEmpleosParteFofo.Controllers
         }
 
         public IActionResult Grafico5()
-        {
+        {   
             return View("~/Views/Gráficos/Grafico5.cshtml");
+        }
+        public IActionResult Grafico8()
+        {
+            return View("~/Views/Gráficos/Grafico8.cshtml");
         }
 
         //Metodo para obtener los datos para el grafico 5
@@ -72,6 +77,53 @@ namespace PadillaEmpleosParteFofo.Controllers
                 });
             }
         }
+
+        //Metodo para obtener los datos para el gráfico 8
+        [HttpGet]
+        public async Task<IActionResult> GetOfertasPorPaisData()
+        {
+            try
+            {
+                // 1. Verificar conexión a la base de datos
+                if (!_context.Database.CanConnect())
+                {
+                    return Json(new { error = "No se pudo conectar a la base de datos" });
+                }
+
+                // 2. Consulta para obtener el total de ofertas
+                var totalOfertas = await _context.OfertaEmpleo.CountAsync();
+
+                if (totalOfertas == 0)
+                {
+                    return Json(new { warning = "No hay ofertas de empleo registradas" });
+                }
+
+                // 3. Consulta para obtener ofertas por país
+                var datos = await _context.OfertaEmpleo
+                    .Include(o => o.Pais)
+                    .GroupBy(o => o.Pais.nombre)
+                    .Select(g => new
+                    {
+                        pais = g.Key,
+                        cantidad = g.Count(),
+                        porcentaje = (g.Count() * 100.0) / totalOfertas
+                    })
+                    .OrderByDescending(x => x.cantidad)
+                    .ToListAsync();
+
+                return Json(datos);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error completo: {ex}");
+                return Json(new
+                {
+                    error = "Error en el servidor",
+                    details = ex.Message
+                });
+            }
+        }
+
 
 
 
