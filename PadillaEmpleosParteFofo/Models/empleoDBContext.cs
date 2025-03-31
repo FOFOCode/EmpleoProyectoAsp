@@ -21,6 +21,7 @@ namespace PadillaEmpleosParteFofo.Models
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Contacto> Contacto { get; set; }
 
+
     }
 
 
