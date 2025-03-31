@@ -18,6 +18,9 @@ namespace PadillaEmpleosParteFofo.Models
         public DbSet<RequisitoOferta> RequisitoOferta { get; set; }
         public DbSet<Requisito> Requisito { get; set; }
         public DbSet<SuscripcionCategoria> SuscripcionCategoria{ get; set; }
+        public DbSet<OfertaCandidatos> OfertaCandidatos { get; set; }
+        public DbSet<FormacionAcademica> FormacionAcademica{ get; set; }
+        public DbSet<Titulo> Titulo { get; set; }
 
-}
+    }
 }
