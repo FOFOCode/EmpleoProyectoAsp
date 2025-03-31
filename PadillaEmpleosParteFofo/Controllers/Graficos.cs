@@ -105,5 +105,95 @@ namespace PadillaEmpleosParteFofo.Controllers
                 throw;
             }
         }
+        //Grap 2 - Número de Inscripciones por Oferta
+        public async Task<IActionResult> InscripcionesPorOferta()
+        {
+            try
+            {
+                var datos = await (from oferta in _context.OfertaEmpleo
+                                   join inscripcion in _context.OfertaCandidatos
+                                   on oferta.id_ofertaempleo equals inscripcion.id_ofertaempleo into inscripciones
+                                   select new InscripcionesPorOfertaViewModel
+                                   {
+                                       Oferta = oferta.titulo,
+                                       TotalInscripciones = inscripciones.Count()
+                                   }).ToListAsync();
+
+                System.Diagnostics.Debug.WriteLine($"Datos obtenidos (Inscripciones por Oferta): {Newtonsoft.Json.JsonConvert.SerializeObject(datos)}");
+
+                if (!datos.Any())
+                {
+                    System.Diagnostics.Debug.WriteLine("No se encontraron inscripciones para las ofertas.");
+                }
+
+                return View("~/Views/Gráficos/InscripcionesPorOferta.cshtml", datos);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+        }
+        //Grap 7
+        public async Task<IActionResult> OfertasPorRangoFechas(DateTime fechaInicio, DateTime fechaFin)
+        {
+            try
+            {
+                var datos = await _context.OfertaEmpleo
+                    .Where(o => o.fecha_publicacion >= fechaInicio && o.fecha_publicacion <= fechaFin)
+                    .GroupBy(o => o.fecha_publicacion)
+                    .Select(g => new
+                    {
+                        Fecha = g.Key,
+                        TotalOfertas = g.Count()
+                    })
+                    .OrderBy(g => g.Fecha)
+                    .ToListAsync();
+
+                System.Diagnostics.Debug.WriteLine($"Datos obtenidos (Ofertas por Rango de Fechas): {Newtonsoft.Json.JsonConvert.SerializeObject(datos)}");
+
+                if (!datos.Any())
+                {
+                    System.Diagnostics.Debug.WriteLine("No se encontraron ofertas publicadas en el rango de fechas especificado.");
+                }
+
+                return View("~/Views/Gráficos/OfertasPorRangoFechas.cshtml", datos);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+        }
+        //Grap 3
+        public async Task<IActionResult> DistribucionCandidatosPorFormacionAcademica()
+        {
+            try
+            {
+                // Realizamos la consulta para obtener la distribución de candidatos por formación académica
+                var datos = await (from fa in _context.FormacionAcademica
+                                   join t in _context.Titulo on fa.id_titulo equals t.id_titulo
+                                   group fa by t.tipo into g
+                                   select new
+                                   {
+                                       NivelFormacion = g.Key,
+                                       TotalCandidatos = g.Count()
+                                   }).ToListAsync();
+
+                // Log de los datos obtenidos
+                System.Diagnostics.Debug.WriteLine($"Datos obtenidos (Distribución de Candidatos por Formación Académica): {Newtonsoft.Json.JsonConvert.SerializeObject(datos)}");
+
+                // Retornamos los datos a la vista
+                return View("~/Views/Gráficos/DistribucionCandidatosPorFormacionAcademica.cshtml", datos);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
     }
 }
