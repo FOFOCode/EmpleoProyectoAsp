@@ -4,4 +4,121 @@
 @{
 }
 
+<body class="" style="background-color:azure">
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header bg-gradient-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0"><i class="fas fa-bell mr-2"></i>  Notificaciones</h3>
+                </div>
+            </div>
 
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="pl-4">Título</th>
+                                <th scope="col">Mensaje</th>
+                                <th scope="col" class="text-center">Fecha</th>
+                                <th scope="col" class="text-center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Ejemplo de fila estática -->
+                            <tr class="notification-unread">
+                                <td class="pl-4 font-weight-bold">Actualización del sistema</td>
+                                <td class="text-truncate" style="max-width: 250px;">Se ha implementado una nueva actualización con mejoras de rendimiento...</td>
+                                <td class="text-center text-muted">@DateTime.Now.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    <i class="fas fa-eye-slash"></i>
+                                </td>
+
+                                <!-- Segunda fila de ejemplo -->
+                            <tr>
+                                <td class="pl-4">Recordatorio importante</td>
+                                <td class="text-truncate" style="max-width: 250px;">No olvides completar el informe trimestral antes del viernes...</td>
+                                <td class="text-center text-muted">@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    <i class="fas fa-eye"></i>
+                                </td>
+                            </tr>
+
+                                @* <!-- Plantilla para filas dinámicas con Razor -->
+                            @foreach (var notificacion in Model.Notificaciones)
+                            {
+                            <tr class="@(!notificacion.Leido ? "notification-unread" : "")">
+                            <td class="pl-4 @(!notificacion.Leido ? "font-weight-bold" : "")">@notificacion.Titulo</td>
+                            <td class="text-truncate" style="max-width: 250px;">@notificacion.Mensaje</td>
+                            <td class="text-center text-muted">@notificacion.Fecha.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">
+                            <span class="badge badge-pill @(notificacion.Leido ? "badge-success" : "badge-warning")">
+                            @(notificacion.Leido ? "Leído" : "Pendiente")
+                            </span>
+                            </td>
+                            <td class="text-right pr-4">
+                            <a href="@Url.Action("Detalle", "Notificaciones", new { id = notificacion.Id })"
+                            class="btn btn-sm btn-outline-primary rounded-circle">
+                            <i class="fas fa-eye"></i>
+                            </a>
+                            @if(!notificacion.Leido) {
+                            <button class="btn btn-sm btn-outline-danger rounded-circle ml-1"
+                            onclick="eliminarNotificacion(@notificacion.Id)">
+                            <i class="fas fa-trash"></i>
+                            </button>
+                            }
+                            </td>
+                            </tr>
+                            } *@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card-footer bg-white">
+                <div class="d-flex justify-content-end align-items-center">
+
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Siguiente</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estilos adicionales -->
+    <style>
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .notification-unread {
+            background-color: #f8f9fa;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+        }
+
+        .rounded-circle {
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</body>
