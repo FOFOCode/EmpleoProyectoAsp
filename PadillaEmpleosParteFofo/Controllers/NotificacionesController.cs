@@ -24,12 +24,12 @@ namespace PadillaEmpleosParteFofo.Controllers
                            && sc.id_usuario == 1
                            select new
                            {
-                               sc.id_categoriaprofesional,
-                               sc.id_subcategoriaprofesional,
-                               o.titulo,
-                               o.fecha_publicacion,
-                               o.id_ofertaempleo
-                           }).GroupBy(x => new { x.id_categoriaprofesional, x.id_subcategoriaprofesional,x.titulo, x.fecha_publicacion, x.id_ofertaempleo })
+                               IdCateProf = sc.id_categoriaprofesional,
+                               IdSubCateProf = sc.id_subcategoriaprofesional,
+                               Titulo = o.titulo,
+                               Fecha = o.fecha_publicacion,
+                               Id = o.id_ofertaempleo
+                           }).GroupBy(x => new { x.IdCateProf, x.IdSubCateProf, x.Titulo, x.Fecha, x.Id })
                            .ToList();
 
             ViewBag.Ofertas = ofertas;
