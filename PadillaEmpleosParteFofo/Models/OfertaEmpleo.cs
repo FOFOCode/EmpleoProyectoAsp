@@ -33,7 +33,7 @@ namespace PadillaEmpleosParteFofo.Models {
 
         public DateTime fecha_publicacion { get; set; }
 
-        public string estado { get; set; }
+        public char estado { get; set; }
 
         public virtual Pais Pais { get; set; }
         public virtual Empresa Empresa { get; set; }
