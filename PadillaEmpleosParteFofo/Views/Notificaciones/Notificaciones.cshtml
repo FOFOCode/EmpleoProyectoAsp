@@ -26,23 +26,17 @@
                         </thead>
                         <tbody>
                             <!-- Ejemplo de fila estática -->
-                            <tr class="notification-unread">
-                                <td class="pl-4 font-weight-bold">Actualización del sistema</td>
+                            @foreach(var item in (IEnumerable<dynamic>)ViewBag.Ofertas){
+                                <tr class="notification-unread">
+                                <td class="pl-4 font-weight-bold">@item.Titulo</td>
                                 <td class="text-truncate" style="max-width: 250px;">Se ha implementado una nueva actualización con mejoras de rendimiento...</td>
-                                <td class="text-center text-muted">@DateTime.Now.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center text-muted">@item.Fecha.ToString("dd/MM/yyyy")</td>
                                 <td class="text-center">
                                     <i class="fas fa-eye-slash"></i>
                                 </td>
-
-                                <!-- Segunda fila de ejemplo -->
-                            <tr>
-                                <td class="pl-4">Recordatorio importante</td>
-                                <td class="text-truncate" style="max-width: 250px;">No olvides completar el informe trimestral antes del viernes...</td>
-                                <td class="text-center text-muted">@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")</td>
-                                <td class="text-center">
-                                    <i class="fas fa-eye"></i>
-                                </td>
-                            </tr>
+                                </tr>
+                            }
+                            
 
                                 @* <!-- Plantilla para filas dinámicas con Razor -->
                             @foreach (var notificacion in Model.Notificaciones)

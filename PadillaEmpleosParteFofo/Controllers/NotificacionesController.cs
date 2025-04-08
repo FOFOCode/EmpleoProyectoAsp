@@ -30,7 +30,8 @@ namespace PadillaEmpleosParteFofo.Controllers
                                Fecha = o.fecha_publicacion,
                                Id = o.id_ofertaempleo
                            }).GroupBy(x => new { x.IdCateProf, x.IdSubCateProf, x.Titulo, x.Fecha, x.Id })
-                           .ToList();
+               .Select(g => g.Key) // Extrae solo las claves del grupo
+               .ToList();
 
             ViewBag.Ofertas = ofertas;
             return View(); 
